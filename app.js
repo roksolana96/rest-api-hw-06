@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(express.static('public')); //avatar
 
 
-app.use('/api/users', usersRouter)
+app.use('/users', usersRouter)
 app.use('/api/contacts', contactsRouter)
 
 app.use((req, res) => {
