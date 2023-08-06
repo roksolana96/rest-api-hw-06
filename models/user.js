@@ -28,6 +28,14 @@ const userSchema = new Schema({
       type: String,
       required: true,
     },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      required: [true, "Verify token is required"],
+    },
   },
   {
     versionKey: false,
@@ -90,6 +98,18 @@ const loginSchema = Joi.object({
     }),
 })
 
+const mailSchema = Joi.object({
+  email: Joi.string()
+    .email()
+    .pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)
+    .required()
+    .messages({
+      "string.email": "Please enter a valid email address",
+      "string.empty": 'The "email" field must not be empty',
+      "any.required": "Missing required email field",
+    }),
+});
+
  //додаткове завдання hw-04 Оновлення підписки (subscription)
 const updateSubscriptionSchema = Joi.object({
   subscription: Joi.string()
@@ -106,6 +126,7 @@ const schemas = {
     registerSchema,
     loginSchema,
     updateSubscriptionSchema,
+    mailSchema,
 
   };
 
